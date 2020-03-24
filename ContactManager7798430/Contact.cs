@@ -14,16 +14,17 @@ namespace ContactManager7798430
         public string contactEmail { get; set; }
         public string contactAddr1 { get; set; }
         public string contactAddr2 { get; set; }
+        public string contactAddr3 { get; set; }
+        public string contactPostcode { get; set; }
         public string contactCity { get; set; }
-        public string contactPostCode { get; set; }
     }
-    public class PersonContact : Contact
+    public class PersonalContact : Contact
     {
-        public string GetcontactHomeTel { get; set; }
+        public string PersonalTel { get; set; }
     }
-    public class Business : Contact
+    public class BusinessContact : Contact
     {
-        public string BusinessContactTel { get; set; }
+        public string BusinessTel { get; set; }
     }
 
 }
