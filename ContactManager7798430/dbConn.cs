@@ -11,8 +11,9 @@ namespace ContactManager7798430
     class dbConn
     {
         private string connString = "db212it.chcygaxzwjzx.us-east-1.rds.amazonaws.com; User ID=admin; Password=db212it123;Database = ContactManagerDB";
-
-        public DataTable GetAllPersonal()
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////            Personal Contact Start                       //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        public DataTable GetAllPersonal() 
         {
             using (var conn = new MySqlConnection(connString))
             {
@@ -143,5 +144,147 @@ namespace ContactManager7798430
                 }
             }
         }
-    }
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////  End personal Contact   ////////////////////////////////////////////////////////////////////
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////      Business Contact         ////////////////////////////////////////////////////////////////////
+        
+        public DataTable GetAllbusiness()
+        {
+            using (var conn = new MySqlConnection(connString))
+            {
+                conn.Open();
+                DataTable businessContactdt = new DataTable();
+                List<BusinessContact> businessContacts = new List<BusinessContact>();
+                using (var mysqlcmd = new MySqlCommand("CALL selectAllBusiness();", conn))
+                using (var reader = mysqlcmd.ExecuteReader())
+                    while (reader.Read())
+                    {
+                        businessContacts.Add(new BusinessContact
+                        {
+                            ContactID = reader.GetInt32(0),
+                            contactFname = reader.GetString(1),
+                            ContactLname = reader.GetString(2),
+                            contactEmail = reader.GetString(3),
+                            BusinessTel = reader.GetString(4),
+                            contactAddr1 = reader.GetString(5),
+                            contactAddr2 = reader.GetString(6),
+                            contactAddr3 = reader.GetString(7),
+                            contactPostcode = reader.GetString(8),
+                            contactCity = reader.GetString(9),
+                        });
+                    }
+                businessContactdt.Columns.Add("ContactID");
+                businessContactdt.Columns.Add("contactFname");
+                businessContactdt.Columns.Add("ContactLname");
+                businessContactdt.Columns.Add("contactEmail");
+                businessContactdt.Columns.Add("PersonalTel");
+                businessContactdt.Columns.Add("contactAddr1");
+                businessContactdt.Columns.Add("contactAddr2");
+                businessContactdt.Columns.Add("contactAddr3");
+                businessContactdt.Columns.Add("contactPostcode");
+                businessContactdt.Columns.Add("contactCity");
+
+                foreach (var item in businessContacts)
+                {
+                    var row = businessContactdt.NewRow();
+                    row["ContactID"] = item.ContactID;
+                    row["contactFname"] = item.contactFname;
+                    row["ContactLname"] = item.ContactLname;
+                    row["contactEmail"] = item.contactEmail;
+                    row["BusinessTel"] = item.BusinessTel;
+                    row["contactAddr1"] = item.contactAddr1;
+                    row["contactAddr2"] = item.contactAddr2;
+                    row["contactAddr3"] = item.contactAddr3;
+                    row["contactPostcode"] = item.contactPostcode;
+                    row["contactCity"] = item.contactCity;
+
+                    businessContactdt.Rows.Add(row);
+                }
+                return businessContactdt;
+            }
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        public void InsertBusiness(BusinessContact businessContact)
+        {
+            using (var conn = new MySqlConnection(connString))
+            {
+                conn.Open();
+                using (var mysqlcmd = new MySqlCommand())
+                {
+                    mysqlcmd.Connection = conn;
+                    mysqlcmd.CommandText = "CALL insertPersonal (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9);";
+                    mysqlcmd.Parameters.AddWithValue("p1,", businessContact.contactFname);
+                    mysqlcmd.Parameters.AddWithValue("p2,", businessContact.ContactLname);
+                    mysqlcmd.Parameters.AddWithValue("p3,", businessContact.contactEmail);
+                    mysqlcmd.Parameters.AddWithValue("p4,", businessContact.BusinessTel);
+                    mysqlcmd.Parameters.AddWithValue("p5,", businessContact.contactAddr1);
+                    mysqlcmd.Parameters.AddWithValue("p6,", businessContact.contactAddr2);
+                    mysqlcmd.Parameters.AddWithValue("p7,", businessContact.contactAddr3);
+                    mysqlcmd.Parameters.AddWithValue("p8,", businessContact.contactPostcode);
+                    mysqlcmd.Parameters.AddWithValue("p9,", businessContact.contactCity);
+                    mysqlcmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+        public void UpdatetBusiness(BusinessContact businessContact)
+        {
+            using (var conn = new MySqlConnection(connString))
+            {
+                conn.Open();
+                using (var mysqlcmd = new MySqlCommand())
+                {
+                    mysqlcmd.Connection = conn;
+                    mysqlcmd.CommandText = "CALL updatePersonal (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10);";
+                    mysqlcmd.Parameters.AddWithValue("p1", businessContact.ContactID);
+                    mysqlcmd.Parameters.AddWithValue("p2", businessContact.contactFname);
+                    mysqlcmd.Parameters.AddWithValue("p3", businessContact.ContactLname);
+                    mysqlcmd.Parameters.AddWithValue("p4", businessContact.contactEmail);
+                    mysqlcmd.Parameters.AddWithValue("p5", businessContact.BusinessTel);
+                    mysqlcmd.Parameters.AddWithValue("p6", businessContact.contactAddr1);
+                    mysqlcmd.Parameters.AddWithValue("p7", businessContact.contactAddr2);
+                    mysqlcmd.Parameters.AddWithValue("p8", businessContact.contactAddr3);
+                    mysqlcmd.Parameters.AddWithValue("p9", businessContact.contactPostcode);
+                    mysqlcmd.Parameters.AddWithValue("p10", businessContact.contactCity);
+                    mysqlcmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        public void DeleteBusiness(int id)
+        {
+            using (var conn = new MySqlConnection(connString))
+            {
+                conn.Open();
+                using (var mysqlcmd = new MySqlCommand())
+                {
+                    mysqlcmd.Connection = conn;
+                    mysqlcmd.CommandText = "CALL deleteBusiness (@p1);";
+                    mysqlcmd.Parameters.AddWithValue("p1", id);
+
+                    mysqlcmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////    End Business        //////////////////////////////////////////////////////////
+
+    }//Class dbConn end
 }

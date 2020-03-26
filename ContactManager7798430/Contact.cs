@@ -18,11 +18,13 @@ namespace ContactManager7798430
         public string contactPostcode { get; set; }
         public string contactCity { get; set; }
     }
-    public class PersonalContact : Contact
+
+    public class PersonalContact : Contact //Inherit from contact
     {
         public string PersonalTel { get; set; }
     }
-    public class BusinessContact : Contact
+
+    public class BusinessContact : Contact //Inherit from contact
     {
         public string BusinessTel { get; set; }
     }
