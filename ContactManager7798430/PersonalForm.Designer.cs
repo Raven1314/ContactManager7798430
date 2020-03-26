@@ -71,6 +71,7 @@
             this.PersonalGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.PersonalGrid.Size = new System.Drawing.Size(1139, 355);
             this.PersonalGrid.TabIndex = 0;
+            this.PersonalGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.PersonalGrid_CellClick);
             // 
             // btnAddNew
             // 
@@ -80,6 +81,7 @@
             this.btnAddNew.TabIndex = 1;
             this.btnAddNew.Text = "Add New";
             this.btnAddNew.UseVisualStyleBackColor = true;
+            this.btnAddNew.Click += new System.EventHandler(this.btnAddNew_Click);
             // 
             // btnSaveNew
             // 
@@ -90,6 +92,7 @@
             this.btnSaveNew.TabIndex = 2;
             this.btnSaveNew.Text = "Save New";
             this.btnSaveNew.UseVisualStyleBackColor = true;
+            this.btnSaveNew.Click += new System.EventHandler(this.btnSaveNew_Click);
             // 
             // btnRefresh
             // 
@@ -99,6 +102,7 @@
             this.btnRefresh.TabIndex = 3;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // btnSaveSelected
             // 
@@ -109,6 +113,7 @@
             this.btnSaveSelected.TabIndex = 4;
             this.btnSaveSelected.Text = "Save Selected";
             this.btnSaveSelected.UseVisualStyleBackColor = true;
+            this.btnSaveSelected.Click += new System.EventHandler(this.btnSaveSelected_Click);
             // 
             // btnUpdateSelected
             // 
@@ -118,6 +123,7 @@
             this.btnUpdateSelected.TabIndex = 5;
             this.btnUpdateSelected.Text = "Update Selected";
             this.btnUpdateSelected.UseVisualStyleBackColor = true;
+            this.btnUpdateSelected.Click += new System.EventHandler(this.btnUpdateSelected_Click);
             // 
             // btnDelete
             // 

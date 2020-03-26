@@ -81,16 +81,16 @@ namespace ContactManager7798430
                 using (var mysqlcmd = new MySqlCommand())
                 {
                     mysqlcmd.Connection = conn;
-                    mysqlcmd.CommandText = "CALL insertPersonal (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9);";
-                    mysqlcmd.Parameters.AddWithValue("p1,", personalContact.contactFname);
-                    mysqlcmd.Parameters.AddWithValue("p2,", personalContact.ContactLname);
-                    mysqlcmd.Parameters.AddWithValue("p3,", personalContact.contactEmail);
-                    mysqlcmd.Parameters.AddWithValue("p4,", personalContact.PersonalTel);
-                    mysqlcmd.Parameters.AddWithValue("p5,", personalContact.contactAddr1);
-                    mysqlcmd.Parameters.AddWithValue("p6,", personalContact.contactAddr2);
-                    mysqlcmd.Parameters.AddWithValue("p7,", personalContact.contactAddr3);
-                    mysqlcmd.Parameters.AddWithValue("p8,", personalContact.contactPostcode);
-                    mysqlcmd.Parameters.AddWithValue("p9,", personalContact.contactCity);
+                    mysqlcmd.CommandText = "CALL insertPersonal(@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9);";
+                    mysqlcmd.Parameters.AddWithValue("p1", personalContact.contactFname);
+                    mysqlcmd.Parameters.AddWithValue("p2", personalContact.ContactLname);
+                    mysqlcmd.Parameters.AddWithValue("p3", personalContact.contactEmail);
+                    mysqlcmd.Parameters.AddWithValue("p4", personalContact.PersonalTel);
+                    mysqlcmd.Parameters.AddWithValue("p5", personalContact.contactAddr1);
+                    mysqlcmd.Parameters.AddWithValue("p6", personalContact.contactAddr2);
+                    mysqlcmd.Parameters.AddWithValue("p7", personalContact.contactAddr3);
+                    mysqlcmd.Parameters.AddWithValue("p8", personalContact.contactPostcode);
+                    mysqlcmd.Parameters.AddWithValue("p9", personalContact.contactCity);
                     mysqlcmd.ExecuteNonQuery();
 
                 }

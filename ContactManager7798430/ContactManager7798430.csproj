@@ -76,6 +76,7 @@
     <Compile Include="PersonalForm.Designer.cs">
       <DependentUpon>PersonalForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PersonalForm_Load.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="PersonalForm.resx">
