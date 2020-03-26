@@ -10,7 +10,7 @@ namespace ContactManager7798430
 {
     class dbConn
     {
-        private string connString = "db212it.chcygaxzwjzx.us-east-1.rds.amazonaws.com; User ID=admin; Password=db212it123;Database = ContactManagerDB";
+        private string connString = "server=db212it.chcygaxzwjzx.us-east-1.rds.amazonaws.com; UserID=admin; Password=db212it123;Database = ContactManagerDB";
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////            Personal Contact Start                       //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         public DataTable GetAllPersonal() 

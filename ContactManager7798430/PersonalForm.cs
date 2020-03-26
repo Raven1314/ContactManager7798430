@@ -10,16 +10,17 @@ using System.Windows.Forms;
 
 namespace ContactManager7798430
 {
-    public partial class Form1 : Form
+    public partial class PersonalForm : Form
     {
-        public Form1()
+        dbConn dconn = new dbConn();
+        public PersonalForm()
         {
             InitializeComponent();
         }
 
-        private void BusinessContact_CheckedChanged(object sender, EventArgs e)
+        private void PersonalForm_Load(object sender, EventArgs e)
         {
-
+            PersonalGrid.DataSource = dconn.GetAllPersonal();
         }
     }
 }
