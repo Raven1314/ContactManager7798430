@@ -19,7 +19,7 @@ namespace ContactManager7798430
             InitializeComponent();
         }
 
-        public void dataRefresh()//Refresh database can be called instead using same code
+        private void dataRefresh()//Refresh database can be called instead using same code
         {
             PersonalGrid.DataSource = dconn.GetAllPersonal();
         }
@@ -51,6 +51,7 @@ namespace ContactManager7798430
             btnUpdateSelected.Enabled = false;
             btnDelete.Enabled = false;
             btnSaveNew.Enabled = true;
+            btnAddNew.Enabled = false;
             txbFname.Text = String.Empty;
             txbLname.Text = String.Empty;
             txbEmail.Text = String.Empty;
@@ -64,16 +65,23 @@ namespace ContactManager7798430
 
         private void PersonalGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            int index = Int32.Parse(PersonalGrid.SelectedCells[0].Value.ToString());
-            txbFname.Text = PersonalGrid.SelectedCells[1].Value.ToString();
-            txbLname.Text = PersonalGrid.SelectedCells[2].Value.ToString();
-            txbEmail.Text = PersonalGrid.SelectedCells[3].Value.ToString();
-            txbPtel.Text = PersonalGrid.SelectedCells[4].Value.ToString();
-            txbAddr1.Text = PersonalGrid.SelectedCells[5].Value.ToString();
-            txbAddr2.Text = PersonalGrid.SelectedCells[6].Value.ToString();
-            txbAddr3.Text = PersonalGrid.SelectedCells[7].Value.ToString();
-            txbPostcode.Text = PersonalGrid.SelectedCells[8].Value.ToString();
-            txbCity.Text = PersonalGrid.SelectedCells[9].Value.ToString();
+            try
+            {
+                int index = Int32.Parse(PersonalGrid.SelectedCells[0].Value.ToString());
+                txbFname.Text = PersonalGrid.SelectedCells[1].Value.ToString();
+                txbLname.Text = PersonalGrid.SelectedCells[2].Value.ToString();
+                txbEmail.Text = PersonalGrid.SelectedCells[3].Value.ToString();
+                txbPtel.Text = PersonalGrid.SelectedCells[4].Value.ToString();
+                txbAddr1.Text = PersonalGrid.SelectedCells[5].Value.ToString();
+                txbAddr2.Text = PersonalGrid.SelectedCells[6].Value.ToString();
+                txbAddr3.Text = PersonalGrid.SelectedCells[7].Value.ToString();
+                txbPostcode.Text = PersonalGrid.SelectedCells[8].Value.ToString();
+                txbCity.Text = PersonalGrid.SelectedCells[9].Value.ToString();
+            }
+            catch
+            {
+
+            }
         }
 
         private void btnSaveNew_Click(object sender, EventArgs e)
@@ -102,7 +110,7 @@ namespace ContactManager7798430
 
             btnUpdateSelected.Enabled = true;
             btnDelete.Enabled = true;
-            btnSaveNew.Enabled = true;
+            btnSaveNew.Enabled = false;
             dataRefresh();
         }
 
@@ -163,8 +171,45 @@ namespace ContactManager7798430
             btnUpdateSelected.Enabled = true;
             btnDelete.Enabled = true;
             btnSaveSelected.Enabled = false;
-            btnAddNew.Enabled = true;
+            btnAddNew.Enabled = false;
 
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            string caption = "Important";
+            string message = "DELETE" + " " + PersonalGrid.SelectedCells[1].Value.ToString() + " " + PersonalGrid.SelectedCells[2].Value.ToString() + "?";
+
+
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result;
+
+            result = MessageBox.Show(message,caption, buttons);
+
+            if (result == DialogResult.Yes)
+            {
+                dconn.DeletePersonal(Int32.Parse(PersonalGrid.SelectedCells[0].Value.ToString()));
+                dataRefresh();
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            txbFname.Enabled = false;
+            txbLname.Enabled = false;
+            txbEmail.Enabled = false;
+            txbPtel.Enabled = false;
+            txbAddr1.Enabled = false;
+            txbAddr2.Enabled = false;
+            txbAddr3.Enabled = false;
+            txbPostcode.Enabled = false;
+            txbCity.Enabled = false;
+
+            btnUpdateSelected.Enabled = true;
+            btnDelete.Enabled = true;
+            btnSaveNew.Enabled = false;
+            btnSaveSelected.Enabled = false;
+            btnAddNew.Enabled = true; ;
         }
     }
 }
