@@ -68,8 +68,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BusinessForm.Designer.cs">
+      <DependentUpon>BusinessForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Contact.cs" />
     <Compile Include="dbConn.cs" />
+    <Compile Include="Home.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Home.Designer.cs">
+      <DependentUpon>Home.cs</DependentUpon>
+    </Compile>
     <Compile Include="PersonalForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,6 +91,12 @@
     <Compile Include="PersonalForm_Load.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="BusinessForm.resx">
+      <DependentUpon>BusinessForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Home.resx">
+      <DependentUpon>Home.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PersonalForm.resx">
       <DependentUpon>PersonalForm.cs</DependentUpon>
     </EmbeddedResource>
