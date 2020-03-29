@@ -65,23 +65,18 @@ namespace ContactManager7798430
 
         private void PersonalGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            try
-            {
-                int index = Int32.Parse(PersonalGrid.SelectedCells[0].Value.ToString());
-                txbFname.Text = PersonalGrid.SelectedCells[1].Value.ToString();
-                txbLname.Text = PersonalGrid.SelectedCells[2].Value.ToString();
-                txbEmail.Text = PersonalGrid.SelectedCells[3].Value.ToString();
-                txbPtel.Text = PersonalGrid.SelectedCells[4].Value.ToString();
-                txbAddr1.Text = PersonalGrid.SelectedCells[5].Value.ToString();
-                txbAddr2.Text = PersonalGrid.SelectedCells[6].Value.ToString();
-                txbAddr3.Text = PersonalGrid.SelectedCells[7].Value.ToString();
-                txbPostcode.Text = PersonalGrid.SelectedCells[8].Value.ToString();
-                txbCity.Text = PersonalGrid.SelectedCells[9].Value.ToString();
-            }
-            catch
-            {
+            //When a cell is clicked it will put the cell information to textbox for update
+            int index = Int32.Parse(PersonalGrid.SelectedCells[0].Value.ToString());
+            txbFname.Text = PersonalGrid.SelectedCells[1].Value.ToString();
+            txbLname.Text = PersonalGrid.SelectedCells[2].Value.ToString();
+            txbEmail.Text = PersonalGrid.SelectedCells[3].Value.ToString();
+            txbPtel.Text = PersonalGrid.SelectedCells[4].Value.ToString();
+            txbAddr1.Text = PersonalGrid.SelectedCells[5].Value.ToString();
+            txbAddr2.Text = PersonalGrid.SelectedCells[6].Value.ToString();
+            txbAddr3.Text = PersonalGrid.SelectedCells[7].Value.ToString();
+            txbPostcode.Text = PersonalGrid.SelectedCells[8].Value.ToString();
+            txbCity.Text = PersonalGrid.SelectedCells[9].Value.ToString();
 
-            }
         }
 
         private void btnSaveNew_Click(object sender, EventArgs e)

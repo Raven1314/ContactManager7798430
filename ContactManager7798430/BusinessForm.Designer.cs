@@ -53,8 +53,8 @@
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnSaveNew = new System.Windows.Forms.Button();
             this.btnAddNew = new System.Windows.Forms.Button();
-            this.PersonalGrid = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.PersonalGrid)).BeginInit();
+            this.BusinessGrid = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.BusinessGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // btnCancel
@@ -255,6 +255,7 @@
             this.btnRefresh.TabIndex = 29;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // btnSaveNew
             // 
@@ -265,6 +266,7 @@
             this.btnSaveNew.TabIndex = 28;
             this.btnSaveNew.Text = "Save New";
             this.btnSaveNew.UseVisualStyleBackColor = true;
+            this.btnSaveNew.Click += new System.EventHandler(this.btnSaveNew_Click);
             // 
             // btnAddNew
             // 
@@ -274,23 +276,25 @@
             this.btnAddNew.TabIndex = 27;
             this.btnAddNew.Text = "Add New";
             this.btnAddNew.UseVisualStyleBackColor = true;
+            this.btnAddNew.Click += new System.EventHandler(this.btnAddNew_Click);
             // 
-            // PersonalGrid
+            // BusinessGrid
             // 
-            this.PersonalGrid.AllowUserToAddRows = false;
-            this.PersonalGrid.AllowUserToResizeColumns = false;
-            this.PersonalGrid.AllowUserToResizeRows = false;
-            this.PersonalGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            this.PersonalGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.PersonalGrid.Location = new System.Drawing.Point(12, 266);
-            this.PersonalGrid.Margin = new System.Windows.Forms.Padding(4);
-            this.PersonalGrid.MultiSelect = false;
-            this.PersonalGrid.Name = "PersonalGrid";
-            this.PersonalGrid.ReadOnly = true;
-            this.PersonalGrid.RowHeadersWidth = 51;
-            this.PersonalGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.PersonalGrid.Size = new System.Drawing.Size(1139, 355);
-            this.PersonalGrid.TabIndex = 26;
+            this.BusinessGrid.AllowUserToAddRows = false;
+            this.BusinessGrid.AllowUserToResizeColumns = false;
+            this.BusinessGrid.AllowUserToResizeRows = false;
+            this.BusinessGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.BusinessGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.BusinessGrid.Location = new System.Drawing.Point(12, 266);
+            this.BusinessGrid.Margin = new System.Windows.Forms.Padding(4);
+            this.BusinessGrid.MultiSelect = false;
+            this.BusinessGrid.Name = "BusinessGrid";
+            this.BusinessGrid.ReadOnly = true;
+            this.BusinessGrid.RowHeadersWidth = 51;
+            this.BusinessGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.BusinessGrid.Size = new System.Drawing.Size(1139, 355);
+            this.BusinessGrid.TabIndex = 26;
+            this.BusinessGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.PersonalGrid_CellClick);
             // 
             // BusinessForm
             // 
@@ -322,11 +326,11 @@
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnSaveNew);
             this.Controls.Add(this.btnAddNew);
-            this.Controls.Add(this.PersonalGrid);
+            this.Controls.Add(this.BusinessGrid);
             this.Name = "BusinessForm";
             this.Text = "Business Contact";
             this.Load += new System.EventHandler(this.BusinessForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.PersonalGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BusinessGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -359,6 +363,6 @@
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnSaveNew;
         private System.Windows.Forms.Button btnAddNew;
-        private System.Windows.Forms.DataGridView PersonalGrid;
+        private System.Windows.Forms.DataGridView BusinessGrid;
     }
 }
