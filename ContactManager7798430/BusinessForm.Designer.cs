@@ -54,12 +54,13 @@
             this.btnSaveNew = new System.Windows.Forms.Button();
             this.btnAddNew = new System.Windows.Forms.Button();
             this.BusinessGrid = new System.Windows.Forms.DataGridView();
+            this.btnMBus = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.BusinessGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(1001, 224);
+            this.btnCancel.Location = new System.Drawing.Point(1002, 217);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(150, 31);
             this.btnCancel.TabIndex = 51;
@@ -222,7 +223,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(817, 177);
+            this.btnDelete.Location = new System.Drawing.Point(817, 160);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(150, 31);
             this.btnDelete.TabIndex = 32;
@@ -253,7 +254,7 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(1001, 177);
+            this.btnRefresh.Location = new System.Drawing.Point(1002, 160);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(150, 31);
             this.btnRefresh.TabIndex = 29;
@@ -298,13 +299,24 @@
             this.BusinessGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.BusinessGrid.Size = new System.Drawing.Size(1139, 355);
             this.BusinessGrid.TabIndex = 26;
-            this.BusinessGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.PersonalGrid_CellClick);
+            this.BusinessGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.BusinessGrid_CellClick);
+            // 
+            // btnMBus
+            // 
+            this.btnMBus.Location = new System.Drawing.Point(817, 217);
+            this.btnMBus.Name = "btnMBus";
+            this.btnMBus.Size = new System.Drawing.Size(150, 31);
+            this.btnMBus.TabIndex = 52;
+            this.btnMBus.Text = "Migrate to Personal";
+            this.btnMBus.UseVisualStyleBackColor = true;
+            this.btnMBus.Click += new System.EventHandler(this.btnMBus_Click);
             // 
             // BusinessForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1164, 634);
+            this.Controls.Add(this.btnMBus);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
@@ -368,5 +380,6 @@
         private System.Windows.Forms.Button btnSaveNew;
         private System.Windows.Forms.Button btnAddNew;
         private System.Windows.Forms.DataGridView BusinessGrid;
+        private System.Windows.Forms.Button btnMBus;
     }
 }

@@ -10,13 +10,13 @@ using System.Windows.Forms;
 
 namespace ContactManager7798430
 {
-    public partial class BusinessForm : Form 
+    public partial class BusinessForm : Form
     {
         dbConn dconn = new dbConn();
         public BusinessForm()
         {
             InitializeComponent();
-            
+
         }
         private void dataRefresh()//Refresh database can be called instead using same code
         {
@@ -31,6 +31,11 @@ namespace ContactManager7798430
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             dataRefresh();
+        }
+
+        private void updata()
+        {
+
         }
 
         private void btnAddNew_Click(object sender, EventArgs e)
@@ -60,9 +65,9 @@ namespace ContactManager7798430
             txbCity.Text = String.Empty;
         }
 
-        
 
-        private void PersonalGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+
+        private void BusinessGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             //When a cell is clicked it will put the cell information to textbox for update
             int index = Int32.Parse(BusinessGrid.SelectedCells[0].Value.ToString());
@@ -89,6 +94,8 @@ namespace ContactManager7798430
             businessContact.contactPostcode = txbPostcode.Text;
             businessContact.contactCity = txbCity.Text;
             dconn.InsertBusiness(businessContact);
+            dataRefresh();
+
 
             txbFname.Enabled = false;
             txbLname.Enabled = false;
@@ -103,7 +110,6 @@ namespace ContactManager7798430
             btnUpdateSelected.Enabled = true;
             btnDelete.Enabled = true;
             btnSaveNew.Enabled = false;
-            dataRefresh();
         }
 
         private void btnUpdateSelected_Click(object sender, EventArgs e)
@@ -121,7 +127,7 @@ namespace ContactManager7798430
             btnUpdateSelected.Enabled = false;
             btnDelete.Enabled = false;
             btnSaveSelected.Enabled = true;
-            btnAddNew.Enabled = false;
+            btnAddNew.Enabled = true;
             txbFname.Text = String.Empty;
             txbLname.Text = String.Empty;
             txbEmail.Text = String.Empty;
@@ -201,6 +207,37 @@ namespace ContactManager7798430
             btnSaveNew.Enabled = false;
             btnSaveSelected.Enabled = false;
             btnAddNew.Enabled = true; ;
+        }
+
+        private void btnMBus_Click(object sender, EventArgs e)
+        {
+            string caption = "Important";
+            string message = "Migrate" + " " + BusinessGrid.SelectedCells[1].Value.ToString() + " " + BusinessGrid.SelectedCells[2].Value.ToString() + "?";
+
+
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result;
+
+            result = MessageBox.Show(message, caption, buttons);
+
+            if (result == DialogResult.Yes)
+            {
+                BusinessContact businessContact = new BusinessContact();
+                businessContact.contactFname = txbFname.Text;
+                businessContact.ContactLname = txbLname.Text;
+                businessContact.contactEmail = txbEmail.Text;
+                businessContact.BusinessTel = txbBtel.Text;
+                businessContact.contactAddr1 = txbAddr1.Text;
+                businessContact.contactAddr2 = txbAddr2.Text;
+                businessContact.contactAddr3 = txbAddr3.Text;
+                businessContact.contactPostcode = txbPostcode.Text;
+                businessContact.contactCity = txbCity.Text;
+                dconn.InsertBusiness(businessContact);
+
+                dconn.DeleteBusiness(Int32.Parse(BusinessGrid.SelectedCells[0].Value.ToString()));
+
+                dataRefresh();
+            }
         }
     }
 }

@@ -92,6 +92,7 @@ namespace ContactManager7798430
             personalContact.contactPostcode = txbPostcode.Text;
             personalContact.contactCity = txbCity.Text;
             dconn.InsertPersonal(personalContact);
+            dataRefresh();
 
             txbFname.Enabled = false;
             txbLname.Enabled = false;
@@ -206,6 +207,38 @@ namespace ContactManager7798430
             btnSaveSelected.Enabled = false;
             btnAddNew.Enabled = true; ;
         }
+
+        private void btnMBus_Click(object sender, EventArgs e)
+        {
+         
+            string caption = "Important";
+            string message = "Migrate" + " " + PersonalGrid.SelectedCells[1].Value.ToString() + " " + PersonalGrid.SelectedCells[2].Value.ToString() + "?";
+
+
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result;
+
+            result = MessageBox.Show(message,caption, buttons);
+
+            if (result == DialogResult.Yes)
+            {
+                BusinessContact businessContact = new BusinessContact();
+                businessContact.contactFname = txbFname.Text;
+                businessContact.ContactLname = txbLname.Text;
+                businessContact.contactEmail = txbEmail.Text;
+                businessContact.BusinessTel = txbPtel.Text;
+                businessContact.contactAddr1 = txbAddr1.Text;
+                businessContact.contactAddr2 = txbAddr2.Text;
+                businessContact.contactAddr3 = txbAddr3.Text;
+                businessContact.contactPostcode = txbPostcode.Text;
+                businessContact.contactCity = txbCity.Text;
+                dconn.InsertBusiness(businessContact);
+
+                dconn.DeletePersonal(Int32.Parse(PersonalGrid.SelectedCells[0].Value.ToString()));
+
+                dataRefresh();
+            }
+        }        
     }
 }
  

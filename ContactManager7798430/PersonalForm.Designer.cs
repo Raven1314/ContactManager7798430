@@ -54,6 +54,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.btnMBus = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PersonalGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -98,7 +99,7 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(1001, 177);
+            this.btnRefresh.Location = new System.Drawing.Point(1002, 160);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(150, 31);
             this.btnRefresh.TabIndex = 3;
@@ -129,7 +130,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(817, 177);
+            this.btnDelete.Location = new System.Drawing.Point(817, 160);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(150, 31);
             this.btnDelete.TabIndex = 6;
@@ -292,7 +293,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(1001, 224);
+            this.btnCancel.Location = new System.Drawing.Point(1002, 217);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(150, 31);
             this.btnCancel.TabIndex = 25;
@@ -300,11 +301,22 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // btnMBus
+            // 
+            this.btnMBus.Location = new System.Drawing.Point(817, 217);
+            this.btnMBus.Name = "btnMBus";
+            this.btnMBus.Size = new System.Drawing.Size(150, 31);
+            this.btnMBus.TabIndex = 26;
+            this.btnMBus.Text = "Migrate to Business";
+            this.btnMBus.UseVisualStyleBackColor = true;
+            this.btnMBus.Click += new System.EventHandler(this.btnMBus_Click);
+            // 
             // PersonalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1164, 634);
+            this.Controls.Add(this.btnMBus);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
@@ -369,6 +381,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnMBus;
     }
 }
 

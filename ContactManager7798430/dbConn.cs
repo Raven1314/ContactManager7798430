@@ -277,7 +277,7 @@ namespace ContactManager7798430
                     mysqlcmd.CommandText = "CALL deleteBusiness (@p1);";
                     mysqlcmd.Parameters.AddWithValue("p1", id);
 
-                    mysqlcmd.ExecuteNonQuery();
+                    //mysqlcmd.ExecuteNonQuery();
 
                 }
             }
