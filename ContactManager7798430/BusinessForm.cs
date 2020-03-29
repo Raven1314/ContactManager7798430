@@ -185,7 +185,7 @@ namespace ContactManager7798430
 
             if (result == DialogResult.Yes)
             {
-                dconn.DeletePersonal(Int32.Parse(BusinessGrid.SelectedCells[0].Value.ToString()));
+                dconn.DeleteBusiness(Int32.Parse(BusinessGrid.SelectedCells[0].Value.ToString()));
                 dataRefresh();
             }
         }
@@ -222,17 +222,18 @@ namespace ContactManager7798430
 
             if (result == DialogResult.Yes)
             {
-                BusinessContact businessContact = new BusinessContact();
-                businessContact.contactFname = txbFname.Text;
-                businessContact.ContactLname = txbLname.Text;
-                businessContact.contactEmail = txbEmail.Text;
-                businessContact.BusinessTel = txbBtel.Text;
-                businessContact.contactAddr1 = txbAddr1.Text;
-                businessContact.contactAddr2 = txbAddr2.Text;
-                businessContact.contactAddr3 = txbAddr3.Text;
-                businessContact.contactPostcode = txbPostcode.Text;
-                businessContact.contactCity = txbCity.Text;
-                dconn.InsertBusiness(businessContact);
+                PersonalContact personalContact = new PersonalContact();
+                personalContact.contactFname = txbFname.Text;
+                personalContact.ContactLname = txbLname.Text;
+                personalContact.contactEmail = txbEmail.Text;
+                personalContact.PersonalTel = txbBtel.Text;
+                personalContact.contactAddr1 = txbAddr1.Text;
+                personalContact.contactAddr2 = txbAddr2.Text;
+                personalContact.contactAddr3 = txbAddr3.Text;
+                personalContact.contactPostcode = txbPostcode.Text;
+                personalContact.contactCity = txbCity.Text;
+                dconn.InsertPersonal(personalContact);
+                dataRefresh();
 
                 dconn.DeleteBusiness(Int32.Parse(BusinessGrid.SelectedCells[0].Value.ToString()));
 
