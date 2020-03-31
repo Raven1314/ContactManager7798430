@@ -39,6 +39,7 @@ public class PersonalContact extends JFrame {
 	private JButton btnRefresh;
 	private JScrollPane scrollPane;
 	private JTable table;
+	dbConn d = new dbConn();//get connection
 
 	/**
 	 * Launch the application.
@@ -49,24 +50,31 @@ public class PersonalContact extends JFrame {
 				try {
 					PersonalContact frame = new PersonalContact();
 					frame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
-		});
-	}
 
+		});
+		
+		
+	}
+	public void Refresh() {//refresh connection can be called
+		table.setModel(DbUtils.resultSetToTableModel(d.GetAllPersonal()));
+	}
 	/**
 	 * Create the frame.
 	 */
 	public PersonalContact() {
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1046, 630);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		dbConn d = new dbConn();
 		
 		tfFname = new JTextField();
 		tfFname.setEditable(false);
@@ -162,9 +170,10 @@ public class PersonalContact extends JFrame {
 		btnRefresh.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				table.setModel(DbUtils.resultSetToTableModel(d.GetAllPersonal()));
+				Refresh();//Call Refresh
 			}
 		});
+		
 		btnRefresh.setBounds(890, 171, 132, 27);
 		contentPane.add(btnRefresh);
 		
@@ -172,17 +181,11 @@ public class PersonalContact extends JFrame {
 		btnDelete.setBounds(719, 125, 132, 27);
 		contentPane.add(btnDelete);
 		
-		JButton btnSaveSelected = new JButton("Save Selected");
-		btnSaveSelected.setEnabled(false);
-		btnSaveSelected.setBounds(719, 81, 132, 27);
-		contentPane.add(btnSaveSelected);
 		
 		
 		
-		JButton btnSaveNew = new JButton("Save New");
-		btnSaveNew.setEnabled(false);
-		btnSaveNew.setBounds(890, 83, 132, 27);
-		contentPane.add(btnSaveNew);
+		
+		
 		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setEnabled(false);
@@ -216,22 +219,148 @@ public class PersonalContact extends JFrame {
 		});
 		scrollPane.setViewportView(table);
 		
-		JButton btnAddNew = new JButton("Add New");
+		
+		
+		
+		
+		JButton btnSaveSelected = new JButton("Save Selected");//////////////////Save Selected///////////////////
+		btnSaveSelected.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String f = tfFname.getText();
+				String l = tfLname.getText();
+				String em = tfEmail.getText();
+				String perTel = tfPerTel.getText();
+				String addr1 = tfAddr1.getText();
+				String addr2 = tfAddr2.getText();
+				String addr3 = tfAddr3.getText();
+				String postcode = tfPostcode.getText();
+				String city = tfCity.getText();
+				String id = table.getValueAt(table.getSelectedRow(), 0).toString();
+
+				d.UpdatePersonal(f, l, em, perTel, addr1, addr2, addr3, postcode, city, id);
+				Refresh();
+				
+				btnSaveSelected.setEnabled(false);
+				btnCancel.setEnabled(false);
+				btnBusMigrate.setEnabled(true);
+				
+				tfFname.setEditable(false);
+				tfLname.setEditable(false);
+				tfEmail.setEditable(false);
+				tfPerTel.setEditable(false);
+				tfAddr1.setEditable(false);
+				tfAddr2.setEditable(false);
+				tfAddr3.setEditable(false);
+				tfPostcode.setEditable(false);
+				tfCity.setEditable(false);
+				
+			}
+		});
+		
+		
+		JButton btnSaveNew = new JButton("Save New"); //////////////////Save New///////////////////
+		btnSaveNew.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				String f = tfFname.getText();
+				String l = tfLname.getText();
+				String em = tfEmail.getText();
+				String perTel = tfPerTel.getText();
+				String addr1 = tfAddr1.getText();
+				String addr2 = tfAddr2.getText();
+				String addr3 = tfAddr3.getText();
+				String postcode = tfPostcode.getText();
+				String city = tfCity.getText();
+
+				d.InsertPersonal(f, l, em, perTel, addr1, addr2, addr3, postcode, city);
+				Refresh();
+				
+				btnCancel.setEnabled(true);
+				btnBusMigrate.setEnabled(true);
+				btnSaveNew.setEnabled(false);
+
+				tfFname.setEditable(true);
+				tfLname.setEditable(true);
+				tfEmail.setEditable(true);
+				tfPerTel.setEditable(true);
+				tfAddr1.setEditable(true);
+				tfAddr2.setEditable(true);
+				tfAddr3.setEditable(true);
+				tfPostcode.setEditable(true);
+				tfCity.setEditable(true);
+			}
+		});
+		btnSaveNew.setEnabled(false);
+		btnSaveNew.setBounds(890, 82, 132, 27);
+		contentPane.add(btnSaveNew);
+		
+		JButton btnAddNew = new JButton("Add New"); /////////////////Add New/////////////////
+		btnAddNew.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				btnSaveSelected.setEnabled(false);
+				btnCancel.setEnabled(true);
+				btnBusMigrate.setEnabled(false);
+				btnSaveNew.setEnabled(true);
+
+				tfFname.setEditable(true);
+				tfLname.setEditable(true);
+				tfEmail.setEditable(true);
+				tfPerTel.setEditable(true);
+				tfAddr1.setEditable(true);
+				tfAddr2.setEditable(true);
+				tfAddr3.setEditable(true);
+				tfPostcode.setEditable(true);
+				tfCity.setEditable(true);
+				
+				tfFname.setText("");
+				tfLname.setText("");
+				tfEmail.setText("");
+				tfPerTel.setText("");
+				tfAddr1.setText("");
+				tfAddr2.setText("");
+				tfAddr3.setText("");
+				tfPostcode.setText("");
+				tfCity.setText("");
+			}
+		});
 		btnAddNew.setBounds(890, 42, 132, 27);
 		contentPane.add(btnAddNew);
+		
+		
+		btnSaveSelected.setEnabled(false);
+		btnSaveSelected.setBounds(719, 82, 132, 27);
+		contentPane.add(btnSaveSelected);
 		
 		JButton btnUpdateSelected = new JButton("Update Selected"); ///////////UpdateSelected////////////
 		btnUpdateSelected.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				btnUpdateSelected.setEnabled(false);
+				
 				btnSaveSelected.setEnabled(true);
-				btnAddNew.setEnabled(false);
 				btnCancel.setEnabled(true);
 				btnBusMigrate.setEnabled(false);
+				
+				tfFname.setEditable(true);
+				tfLname.setEditable(true);
+				tfEmail.setEditable(true);
+				tfPerTel.setEditable(true);
+				tfAddr1.setEditable(true);
+				tfAddr2.setEditable(true);
+				tfAddr3.setEditable(true);
+				tfPostcode.setEditable(true);
+				tfCity.setEditable(true);
+				
+				
+				
 			}
 		});
 		btnUpdateSelected.setBounds(719, 42, 132, 27);
 		contentPane.add(btnUpdateSelected);
+		
+		
+		
 	}
 }
