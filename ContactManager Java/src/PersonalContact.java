@@ -19,7 +19,7 @@ public class PersonalContact extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-	private JTextField textField;
+	private JTextField txbFname;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
@@ -73,10 +73,10 @@ public class PersonalContact extends JFrame {
 		scrollPane.setViewportView(table);
 		dbConn d = new dbConn();
 		
-		textField = new JTextField();
-		textField.setBounds(102, 46, 99, 19);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		txbFname = new JTextField();
+		txbFname.setBounds(102, 46, 99, 19);
+		contentPane.add(txbFname);
+		txbFname.setColumns(10);
 		
 		textField_1 = new JTextField();
 		textField_1.setBounds(102, 86, 99, 19);
