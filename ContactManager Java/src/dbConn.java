@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class dbConn {
-    String connString = "jdbc:mysql:db212it.chcygaxzwjzx.us-east-1.rds.amazonaws.com/ContactManagerDB";
+    String connString = "jdbc:mysql://db212it.chcygaxzwjzx.us-east-1.rds.amazonaws.com/ContactManagerDB";
     String userName= "admin";
     String password ="db212it123";
     Connection conn = null;

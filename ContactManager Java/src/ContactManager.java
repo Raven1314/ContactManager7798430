@@ -42,7 +42,7 @@ public class ContactManager {
 		frame.getContentPane().setLayout(null);
 		
 		JButton btnBusiness = new JButton("Business Contact");
-		btnBusiness.setBounds(534, 251, 183, 61);
+		btnBusiness.setBounds(504, 217, 183, 61);
 		frame.getContentPane().add(btnBusiness);
 		
 		JButton btnPersonal = new JButton("Personal Contact");
@@ -53,7 +53,7 @@ public class ContactManager {
 				pc.setVisible(true);
 			}
 		});
-		btnPersonal.setBounds(220, 251, 183, 61);
+		btnPersonal.setBounds(180, 217, 183, 61);
 		frame.getContentPane().add(btnPersonal);
 	}
 }

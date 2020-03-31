@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import javafx.scene.control.TextField;
 import net.proteanit.sql.DbUtils;
 
 import javax.swing.JTable;
@@ -18,16 +19,15 @@ import java.awt.event.MouseEvent;
 public class PersonalContact extends JFrame {
 
 	private JPanel contentPane;
-	private JTable table;
-	private JTextField txbFname;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
+	private JTextField tfFname;
+	private JTextField tfLname;
+	private JTextField tfEmail;
+	private JTextField tfPerTel;
+	private JTextField tfAddr1;
+	private JTextField tfAddr2;
+	private JTextField tfAddr3;
+	private JTextField tfPostcode;
+	private JTextField tfCity;
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
@@ -36,7 +36,9 @@ public class PersonalContact extends JFrame {
 	private JLabel lblNewLabel_6;
 	private JLabel lblNewLabel_7;
 	private JLabel lblNewLabel_8;
-	private JButton btnBusMigrate;
+	private JButton btnRefresh;
+	private JScrollPane scrollPane;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -64,59 +66,61 @@ public class PersonalContact extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(41, 248, 968, 323);
-		contentPane.add(scrollPane);
-		
-		table = new JTable();
-		scrollPane.setViewportView(table);
 		dbConn d = new dbConn();
 		
-		txbFname = new JTextField();
-		txbFname.setBounds(102, 46, 99, 19);
-		contentPane.add(txbFname);
-		txbFname.setColumns(10);
+		tfFname = new JTextField();
+		tfFname.setEditable(false);
+		tfFname.setBounds(102, 46, 99, 19);
+		contentPane.add(tfFname);
+		tfFname.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(102, 86, 99, 19);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		tfLname = new JTextField();
+		tfLname.setEditable(false);
+		tfLname.setBounds(102, 86, 99, 19);
+		contentPane.add(tfLname);
+		tfLname.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(73, 130, 128, 19);
-		contentPane.add(textField_2);
-		textField_2.setColumns(10);
+		tfEmail = new JTextField();
+		tfEmail.setEditable(false);
+		tfEmail.setBounds(73, 130, 128, 19);
+		contentPane.add(tfEmail);
+		tfEmail.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(102, 175, 99, 19);
-		contentPane.add(textField_3);
-		textField_3.setColumns(10);
+		tfPerTel = new JTextField();
+		tfPerTel.setEditable(false);
+		tfPerTel.setBounds(102, 175, 99, 19);
+		contentPane.add(tfPerTel);
+		tfPerTel.setColumns(10);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(286, 20, 110, 19);
-		contentPane.add(textField_4);
-		textField_4.setColumns(10);
+		tfAddr1 = new JTextField();
+		tfAddr1.setEditable(false);
+		tfAddr1.setBounds(286, 20, 110, 19);
+		contentPane.add(tfAddr1);
+		tfAddr1.setColumns(10);
 		
-		textField_5 = new JTextField();
-		textField_5.setBounds(286, 64, 110, 19);
-		contentPane.add(textField_5);
-		textField_5.setColumns(10);
+		tfAddr2 = new JTextField();
+		tfAddr2.setEditable(false);
+		tfAddr2.setBounds(286, 64, 110, 19);
+		contentPane.add(tfAddr2);
+		tfAddr2.setColumns(10);
 		
-		textField_6 = new JTextField();
-		textField_6.setBounds(286, 108, 110, 19);
-		contentPane.add(textField_6);
-		textField_6.setColumns(10);
+		tfAddr3 = new JTextField();
+		tfAddr3.setEditable(false);
+		tfAddr3.setBounds(286, 108, 110, 19);
+		contentPane.add(tfAddr3);
+		tfAddr3.setColumns(10);
 		
-		textField_7 = new JTextField();
-		textField_7.setBounds(286, 152, 110, 19);
-		contentPane.add(textField_7);
-		textField_7.setColumns(10);
+		tfPostcode = new JTextField();
+		tfPostcode.setEditable(false);
+		tfPostcode.setBounds(286, 152, 110, 19);
+		contentPane.add(tfPostcode);
+		tfPostcode.setColumns(10);
 		
-		textField_8 = new JTextField();
-		textField_8.setBounds(286, 197, 110, 19);
-		contentPane.add(textField_8);
-		textField_8.setColumns(10);
+		tfCity = new JTextField();
+		tfCity.setEditable(false);
+		tfCity.setBounds(286, 197, 110, 19);
+		contentPane.add(tfCity);
+		tfCity.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("First Name");
 		lblNewLabel.setBounds(15, 46, 77, 19);
@@ -154,42 +158,80 @@ public class PersonalContact extends JFrame {
 		lblNewLabel_8.setBounds(213, 197, 63, 19);
 		contentPane.add(lblNewLabel_8);
 		
-		btnBusMigrate = new JButton("Migrate to Business");
-		btnBusMigrate.addMouseListener(new MouseAdapter() {
+		btnRefresh = new JButton("Refresh");
+		btnRefresh.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				table.setModel(DbUtils.resultSetToTableModel(d.GetAllPersonal()));
 			}
 		});
-		btnBusMigrate.setBounds(719, 170, 132, 27);
-		contentPane.add(btnBusMigrate);
+		btnRefresh.setBounds(890, 171, 132, 27);
+		contentPane.add(btnRefresh);
 		
 		JButton btnDelete = new JButton("Delete");
 		btnDelete.setBounds(719, 125, 132, 27);
 		contentPane.add(btnDelete);
 		
 		JButton btnSaveSelected = new JButton("Save Selected");
+		btnSaveSelected.setEnabled(false);
 		btnSaveSelected.setBounds(719, 81, 132, 27);
 		contentPane.add(btnSaveSelected);
 		
-		JButton btnUpdateSelected = new JButton("Update Selected");
-		btnUpdateSelected.setBounds(719, 42, 132, 27);
-		contentPane.add(btnUpdateSelected);
+		
+		
+		JButton btnSaveNew = new JButton("Save New");
+		btnSaveNew.setEnabled(false);
+		btnSaveNew.setBounds(890, 83, 132, 27);
+		contentPane.add(btnSaveNew);
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.setEnabled(false);
+		btnCancel.setBounds(890, 127, 132, 27);
+		contentPane.add(btnCancel);
+		
+		JButton btnBusMigrate = new JButton("Migrate to Business");
+		btnBusMigrate.setBounds(719, 171, 132, 27);
+		contentPane.add(btnBusMigrate);
+		
+		scrollPane = new JScrollPane();
+		
+		scrollPane.setBounds(27, 250, 977, 333);
+		contentPane.add(scrollPane);
+		
+		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tfFname.setText(table.getValueAt(table.getSelectedRow(),1).toString());
+				tfLname.setText(table.getValueAt(table.getSelectedRow(),2).toString());
+				tfEmail.setText(table.getValueAt(table.getSelectedRow(),3).toString());
+				tfPerTel.setText(table.getValueAt(table.getSelectedRow(),4).toString());
+				tfAddr1.setText(table.getValueAt(table.getSelectedRow(),5).toString());
+				tfAddr2.setText(table.getValueAt(table.getSelectedRow(),6).toString());
+				tfAddr3.setText(table.getValueAt(table.getSelectedRow(),7).toString());
+				tfPostcode.setText(table.getValueAt(table.getSelectedRow(),8).toString());
+				tfCity.setText(table.getValueAt(table.getSelectedRow(),9).toString());
+
+			}
+		});
+		scrollPane.setViewportView(table);
 		
 		JButton btnAddNew = new JButton("Add New");
 		btnAddNew.setBounds(890, 42, 132, 27);
 		contentPane.add(btnAddNew);
 		
-		JButton btnSaveNew = new JButton("Save New");
-		btnSaveNew.setBounds(890, 83, 132, 27);
-		contentPane.add(btnSaveNew);
-		
-		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(890, 127, 132, 27);
-		contentPane.add(btnCancel);
-		
-		JButton btnRefresh_7 = new JButton("Refresh");
-		btnRefresh_7.setBounds(890, 172, 132, 27);
-		contentPane.add(btnRefresh_7);
+		JButton btnUpdateSelected = new JButton("Update Selected"); ///////////UpdateSelected////////////
+		btnUpdateSelected.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				btnUpdateSelected.setEnabled(false);
+				btnSaveSelected.setEnabled(true);
+				btnAddNew.setEnabled(false);
+				btnCancel.setEnabled(true);
+				btnBusMigrate.setEnabled(false);
+			}
+		});
+		btnUpdateSelected.setBounds(719, 42, 132, 27);
+		contentPane.add(btnUpdateSelected);
 	}
 }
