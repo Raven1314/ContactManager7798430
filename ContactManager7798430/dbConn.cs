@@ -20,7 +20,7 @@ namespace ContactManager7798430
                 conn.Open();
                 DataTable personalContactDt = new DataTable();
                 List<PersonalContact> personalContacts = new List<PersonalContact>();
-                using (var mysqlcmd = new MySqlCommand("CALL selectAllPersonal();", conn))
+                using (var mysqlcmd = new MySqlCommand("CAll SelectAllPersonal;", conn))
                 using (var reader = mysqlcmd.ExecuteReader())
                     while (reader.Read())
                     {
