@@ -39,6 +39,9 @@ public class PersonalContact extends JFrame {
 	private JButton btnRefresh;
 	private JScrollPane scrollPane;
 	private JTable table;
+	boolean updateMode = true;
+	
+	
 	dbConn d = new dbConn();//get connection
 
 	/**
@@ -165,6 +168,24 @@ public class PersonalContact extends JFrame {
 		lblNewLabel_8 = new JLabel("City");
 		lblNewLabel_8.setBounds(213, 197, 63, 19);
 		contentPane.add(lblNewLabel_8);
+
+		
+		
+		JButton btnDelete = new JButton("Delete");
+		btnDelete.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				String id = table.getValueAt(table.getSelectedRow(), 0).toString();
+				d.DeletePersonal(id);
+				Refresh();
+			}
+		});
+		btnDelete.setBounds(719, 125, 132, 27);
+		contentPane.add(btnDelete);
+		
+		
+		
 		
 		btnRefresh = new JButton("Refresh");
 		btnRefresh.addMouseListener(new MouseAdapter() {
@@ -176,11 +197,6 @@ public class PersonalContact extends JFrame {
 		
 		btnRefresh.setBounds(890, 171, 132, 27);
 		contentPane.add(btnRefresh);
-		
-		JButton btnDelete = new JButton("Delete");
-		btnDelete.setBounds(719, 125, 132, 27);
-		contentPane.add(btnDelete);
-		
 		
 		
 		
@@ -264,32 +280,49 @@ public class PersonalContact extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				String f = tfFname.getText();
-				String l = tfLname.getText();
-				String em = tfEmail.getText();
-				String perTel = tfPerTel.getText();
-				String addr1 = tfAddr1.getText();
-				String addr2 = tfAddr2.getText();
-				String addr3 = tfAddr3.getText();
-				String postcode = tfPostcode.getText();
-				String city = tfCity.getText();
+				if(updateMode = true) {
+					String f = tfFname.getText();
+					String l = tfLname.getText();
+					String em = tfEmail.getText();
+					String perTel = tfPerTel.getText();
+					String addr1 = tfAddr1.getText();
+					String addr2 = tfAddr2.getText();
+					String addr3 = tfAddr3.getText();
+					String postcode = tfPostcode.getText();
+					String city = tfCity.getText();
 
-				d.InsertPersonal(f, l, em, perTel, addr1, addr2, addr3, postcode, city);
-				Refresh();
+					d.InsertPersonal(f, l, em, perTel, addr1, addr2, addr3, postcode, city);
+					Refresh();
+					
+					btnCancel.setEnabled(true);
+					btnBusMigrate.setEnabled(true);
+					btnSaveNew.setEnabled(false);
+
+					tfFname.setEditable(true);
+					tfLname.setEditable(true);
+					tfEmail.setEditable(true);
+					tfPerTel.setEditable(true);
+					tfAddr1.setEditable(true);
+					tfAddr2.setEditable(true);
+					tfAddr3.setEditable(true);
+					tfPostcode.setEditable(true);
+					tfCity.setEditable(true);
+				}
+				else {
+					
+					String f = tfFname.getText();
+					String l = tfLname.getText();
+					String em = tfEmail.getText();
+					String perTel = tfPerTel.getText();
+					String addr1 = tfAddr1.getText();
+					String addr2 = tfAddr2.getText();
+					String addr3 = tfAddr3.getText();
+					String postcode = tfPostcode.getText();
+					String city = tfCity.getText();
+					Refresh();
+
+				}
 				
-				btnCancel.setEnabled(true);
-				btnBusMigrate.setEnabled(true);
-				btnSaveNew.setEnabled(false);
-
-				tfFname.setEditable(true);
-				tfLname.setEditable(true);
-				tfEmail.setEditable(true);
-				tfPerTel.setEditable(true);
-				tfAddr1.setEditable(true);
-				tfAddr2.setEditable(true);
-				tfAddr3.setEditable(true);
-				tfPostcode.setEditable(true);
-				tfCity.setEditable(true);
 			}
 		});
 		btnSaveNew.setEnabled(false);
@@ -300,6 +333,8 @@ public class PersonalContact extends JFrame {
 		btnAddNew.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				updateMode=false;
+				
 				btnSaveSelected.setEnabled(false);
 				btnCancel.setEnabled(true);
 				btnBusMigrate.setEnabled(false);

@@ -86,5 +86,18 @@ public class dbConn {
 
 	}
 	
+	public void DeletePersonal(String id) {
+		
+		String sql = "{CALL deletePersonal(?)}";
+		try {
+			java.sql.CallableStatement cst = conn.prepareCall(sql);
+			cst.setString(1, id);
+			cst.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
 }
