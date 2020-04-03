@@ -82,13 +82,13 @@ public class PersonalContact extends JFrame {
 		
 		tfFname = new JTextField();
 		tfFname.setEditable(false);
-		tfFname.setBounds(102, 46, 99, 19);
+		tfFname.setBounds(91, 46, 110, 19);
 		contentPane.add(tfFname);
 		tfFname.setColumns(10);
 		
 		tfLname = new JTextField();
 		tfLname.setEditable(false);
-		tfLname.setBounds(102, 86, 99, 19);
+		tfLname.setBounds(91, 86, 110, 19);
 		contentPane.add(tfLname);
 		tfLname.setColumns(10);
 		
@@ -266,7 +266,7 @@ public class PersonalContact extends JFrame {
 		
 		btnDelete.addActionListener(new ActionListener() {////////////////////Delete////////////////
 			public void actionPerformed(ActionEvent e) {
-				try {
+				try {//When delete nothing error appears in the console, so try and catch is used
 					
 				    int dialogButton = JOptionPane.YES_NO_OPTION;
 					int dialogResult = JOptionPane.showConfirmDialog (null, "Delete" +" " +	table.getValueAt(table.getSelectedRow(),1) +" "+table.getValueAt(table.getSelectedRow(),2),"Warning",dialogButton);
@@ -290,9 +290,18 @@ public class PersonalContact extends JFrame {
 		});
 		
 		
+		btnBusMigrate.addActionListener(new ActionListener() {//////////////////Migrate Personal to Business////////////////////
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
 		
 		btnSaveSelected.addActionListener(new ActionListener() {//////////////////Save Selected///////////////////
 			public void actionPerformed(ActionEvent e) {
+				
+				if(!((tfFname.getText().isEmpty() || tfLname.getText().isEmpty()))) {
+
 				String f = tfFname.getText();
 				String l = tfLname.getText();
 				String em = tfEmail.getText();
@@ -323,12 +332,20 @@ public class PersonalContact extends JFrame {
 				tfAddr3.setEditable(false);
 				tfPostcode.setEditable(false);
 				tfCity.setEditable(false);
+				}
+				else {
+					JOptionPane.showMessageDialog(null,"Please enter First Name or Last Name");
+				}
 			}
 		});
 		
 		
 		btnSaveNew.addActionListener(new ActionListener() {//////////////////Save New///////////////////
 			public void actionPerformed(ActionEvent e) {
+				
+				if(!((tfFname.getText().isEmpty() || tfLname.getText().isEmpty()))) {
+				
+				
 				String f = tfFname.getText();
 				String l = tfLname.getText();
 				String em = tfEmail.getText();
@@ -358,7 +375,13 @@ public class PersonalContact extends JFrame {
 				tfAddr3.setEditable(true);
 				tfPostcode.setEditable(true);
 				tfCity.setEditable(true);
+				}
+				
+				else {
+					JOptionPane.showMessageDialog(null,"Please enter First Name or Last Name");
+				}
 			}
+			
 		});
 		
 		
@@ -398,6 +421,7 @@ public class PersonalContact extends JFrame {
 		
 		btnUpdateSelected.addActionListener(new ActionListener() {///////////UpdateSelected////////////
 			public void actionPerformed(ActionEvent e) {
+				
 				btnSaveSelected.setEnabled(true);
 				btnCancel.setEnabled(true);
 				btnBusMigrate.setEnabled(false);
