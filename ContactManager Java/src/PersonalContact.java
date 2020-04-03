@@ -201,24 +201,7 @@ public class PersonalContact extends JFrame {
 		btnBusMigrate.setBounds(719, 171, 132, 27);
 		contentPane.add(btnBusMigrate);
 		
-		
-		
-		btnDelete.addActionListener(new ActionListener() {////////////////////Delete////////////////
-			public void actionPerformed(ActionEvent e) {
-				try {
 
-				String id = table.getValueAt(table.getSelectedRow(), 0).toString();
-				d.DeletePersonal(id);
-				Refresh();
-			}
-				catch(Exception e1){
-					
-				}
-
-			}
-				
-		});
-		
 		
 		btnRefresh = new JButton("Refresh");////////////Refresh////////////////
 		btnRefresh.addActionListener(new ActionListener() {
@@ -232,11 +215,8 @@ public class PersonalContact extends JFrame {
 		
 		
 
-		
-		
-		btnCancel.addMouseListener(new MouseAdapter() {//////////Cancel Editing///////////////////
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		btnCancel.addActionListener(new ActionListener() {//////////Cancel Editing///////////////////
+			public void actionPerformed(ActionEvent e) {
 				
 				btnSaveSelected.setEnabled(false);
 				btnCancel.setEnabled(false);
@@ -255,14 +235,10 @@ public class PersonalContact extends JFrame {
 				tfAddr3.setEditable(false);
 				tfPostcode.setEditable(false);
 				tfCity.setEditable(false);
-				
-				
 			}
 		});
 		
-		
-		
-		
+
 		scrollPane = new JScrollPane();
 		
 		scrollPane.setBounds(27, 250, 977, 333);
@@ -285,6 +261,34 @@ public class PersonalContact extends JFrame {
 			}
 		});
 		scrollPane.setViewportView(table);
+		
+		
+		
+		btnDelete.addActionListener(new ActionListener() {////////////////////Delete////////////////
+			public void actionPerformed(ActionEvent e) {
+				try {
+					
+				    int dialogButton = JOptionPane.YES_NO_OPTION;
+					int dialogResult = JOptionPane.showConfirmDialog (null, "Delete" +" " +	table.getValueAt(table.getSelectedRow(),1) +" "+table.getValueAt(table.getSelectedRow(),2),"Warning",dialogButton);
+					//adds record information into confirmation box
+					if(dialogResult == JOptionPane.YES_OPTION){//If user clicked yes, it will delete the record
+						String id = table.getValueAt(table.getSelectedRow(), 0).toString();
+						d.DeletePersonal(id);
+						Refresh();					
+						}
+					
+					else {
+						//Does nothing
+					}
+			}
+				catch(Exception e1){
+					
+				}
+
+			}
+				
+		});
+		
 		
 		
 		btnSaveSelected.addActionListener(new ActionListener() {//////////////////Save Selected///////////////////
