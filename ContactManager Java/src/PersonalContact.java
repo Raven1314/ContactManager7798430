@@ -12,12 +12,9 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class PersonalContact extends JFrame {
 
@@ -42,6 +39,7 @@ public class PersonalContact extends JFrame {
 	private JButton btnRefresh;
 	private JScrollPane scrollPane;
 	private JTable table;
+	boolean updateMode = true;
 	
 	
 	dbConn d = new dbConn();//get connection
@@ -72,6 +70,7 @@ public class PersonalContact extends JFrame {
 	 * Create the frame.
 	 */
 	public PersonalContact() {
+		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1046, 630);
@@ -170,27 +169,39 @@ public class PersonalContact extends JFrame {
 		lblNewLabel_8.setBounds(213, 197, 63, 19);
 		contentPane.add(lblNewLabel_8);
 
-		JButton btnSaveSelected = new JButton("Save Selected");
-		btnSaveSelected.setEnabled(false);
-		btnSaveSelected.setBounds(719, 82, 132, 27);
-		contentPane.add(btnSaveSelected);
+		
 		
 		JButton btnDelete = new JButton("Delete");
-		btnDelete.setBounds(719, 126, 132, 27);
+		btnDelete.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				String id = table.getValueAt(table.getSelectedRow(), 0).toString();
+				d.DeletePersonal(id);
+				Refresh();
+			}
+		});
+		btnDelete.setBounds(719, 125, 132, 27);
 		contentPane.add(btnDelete);
 		
-		JButton btnSaveNew = new JButton("Save New");
-		btnSaveNew.setEnabled(false);
-		btnSaveNew.setBounds(890, 82, 132, 27);
-		contentPane.add(btnSaveNew);
 		
-		JButton btnUpdateSelected = new JButton("Update Selected");
-		btnUpdateSelected.setBounds(719, 42, 132, 27);
-		contentPane.add(btnUpdateSelected);
 		
-		JButton btnAddNew = new JButton("Add New");
-		btnAddNew.setBounds(890, 42, 132, 27);
-		contentPane.add(btnAddNew);
+		
+		btnRefresh = new JButton("Refresh");
+		btnRefresh.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Refresh();//Call Refresh
+			}
+		});
+		
+		btnRefresh.setBounds(890, 171, 132, 27);
+		contentPane.add(btnRefresh);
+		
+		
+		
+		
+		
 		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setEnabled(false);
@@ -200,68 +211,6 @@ public class PersonalContact extends JFrame {
 		JButton btnBusMigrate = new JButton("Migrate to Business");
 		btnBusMigrate.setBounds(719, 171, 132, 27);
 		contentPane.add(btnBusMigrate);
-		
-		
-		
-		btnDelete.addActionListener(new ActionListener() {////////////////////Delete////////////////
-			public void actionPerformed(ActionEvent e) {
-				try {
-
-				String id = table.getValueAt(table.getSelectedRow(), 0).toString();
-				d.DeletePersonal(id);
-				Refresh();
-			}
-				catch(Exception e1){
-					
-				}
-
-			}
-				
-		});
-		
-		
-		btnRefresh = new JButton("Refresh");////////////Refresh////////////////
-		btnRefresh.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Refresh();//Call Refresh
-			}
-		});
-		btnRefresh.setBounds(890, 171, 132, 27);
-		contentPane.add(btnRefresh);
-		
-		
-		
-
-		
-		
-		btnCancel.addMouseListener(new MouseAdapter() {//////////Cancel Editing///////////////////
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				btnSaveSelected.setEnabled(false);
-				btnCancel.setEnabled(false);
-				btnBusMigrate.setEnabled(true);
-				btnUpdateSelected.setEnabled(true);
-				btnAddNew.setEnabled(true);
-				btnSaveNew.setEnabled(false);
-				btnDelete.setEnabled(true);
-				
-				tfFname.setEditable(false);
-				tfLname.setEditable(false);
-				tfEmail.setEditable(false);
-				tfPerTel.setEditable(false);
-				tfAddr1.setEditable(false);
-				tfAddr2.setEditable(false);
-				tfAddr3.setEditable(false);
-				tfPostcode.setEditable(false);
-				tfCity.setEditable(false);
-				
-				
-			}
-		});
-		
-		
-		
 		
 		scrollPane = new JScrollPane();
 		
@@ -287,8 +236,13 @@ public class PersonalContact extends JFrame {
 		scrollPane.setViewportView(table);
 		
 		
-		btnSaveSelected.addActionListener(new ActionListener() {//////////////////Save Selected///////////////////
-			public void actionPerformed(ActionEvent e) {
+		
+		
+		
+		JButton btnSaveSelected = new JButton("Save Selected");//////////////////Save Selected///////////////////
+		btnSaveSelected.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				String f = tfFname.getText();
 				String l = tfLname.getText();
 				String em = tfEmail.getText();
@@ -306,10 +260,7 @@ public class PersonalContact extends JFrame {
 				btnSaveSelected.setEnabled(false);
 				btnCancel.setEnabled(false);
 				btnBusMigrate.setEnabled(true);
-				btnUpdateSelected.setEnabled(true);
-				btnAddNew.setEnabled(true);
-				btnDelete.setEnabled(true);
-
+				
 				tfFname.setEditable(false);
 				tfLname.setEditable(false);
 				tfEmail.setEditable(false);
@@ -319,56 +270,76 @@ public class PersonalContact extends JFrame {
 				tfAddr3.setEditable(false);
 				tfPostcode.setEditable(false);
 				tfCity.setEditable(false);
+				
 			}
 		});
 		
 		
-		btnSaveNew.addActionListener(new ActionListener() {//////////////////Save New///////////////////
-			public void actionPerformed(ActionEvent e) {
-				String f = tfFname.getText();
-				String l = tfLname.getText();
-				String em = tfEmail.getText();
-				String perTel = tfPerTel.getText();
-				String addr1 = tfAddr1.getText();
-				String addr2 = tfAddr2.getText();
-				String addr3 = tfAddr3.getText();
-				String postcode = tfPostcode.getText();
-				String city = tfCity.getText();
+		JButton btnSaveNew = new JButton("Save New"); //////////////////Save New///////////////////
+		btnSaveNew.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				if(updateMode = true) {
+					String f = tfFname.getText();
+					String l = tfLname.getText();
+					String em = tfEmail.getText();
+					String perTel = tfPerTel.getText();
+					String addr1 = tfAddr1.getText();
+					String addr2 = tfAddr2.getText();
+					String addr3 = tfAddr3.getText();
+					String postcode = tfPostcode.getText();
+					String city = tfCity.getText();
 
-				d.InsertPersonal(f, l, em, perTel, addr1, addr2, addr3, postcode, city);
-				Refresh();
+					d.InsertPersonal(f, l, em, perTel, addr1, addr2, addr3, postcode, city);
+					Refresh();
+					
+					btnCancel.setEnabled(true);
+					btnBusMigrate.setEnabled(true);
+					btnSaveNew.setEnabled(false);
 
-				btnCancel.setEnabled(false);
-				btnBusMigrate.setEnabled(true);
-				btnSaveNew.setEnabled(false);
-				btnAddNew.setEnabled(true);
-				btnUpdateSelected.setEnabled(true);
-				btnDelete.setEnabled(true);
+					tfFname.setEditable(true);
+					tfLname.setEditable(true);
+					tfEmail.setEditable(true);
+					tfPerTel.setEditable(true);
+					tfAddr1.setEditable(true);
+					tfAddr2.setEditable(true);
+					tfAddr3.setEditable(true);
+					tfPostcode.setEditable(true);
+					tfCity.setEditable(true);
+				}
+				else {
+					
+					String f = tfFname.getText();
+					String l = tfLname.getText();
+					String em = tfEmail.getText();
+					String perTel = tfPerTel.getText();
+					String addr1 = tfAddr1.getText();
+					String addr2 = tfAddr2.getText();
+					String addr3 = tfAddr3.getText();
+					String postcode = tfPostcode.getText();
+					String city = tfCity.getText();
+					Refresh();
 
-				tfFname.setEditable(true);
-				tfLname.setEditable(true);
-				tfEmail.setEditable(true);
-				tfPerTel.setEditable(true);
-				tfAddr1.setEditable(true);
-				tfAddr2.setEditable(true);
-				tfAddr3.setEditable(true);
-				tfPostcode.setEditable(true);
-				tfCity.setEditable(true);
+				}
+				
 			}
 		});
+		btnSaveNew.setEnabled(false);
+		btnSaveNew.setBounds(890, 82, 132, 27);
+		contentPane.add(btnSaveNew);
 		
-		
-		
-		btnAddNew.addActionListener(new ActionListener() {/////////////////Add New/////////////////
-			public void actionPerformed(ActionEvent e) {
+		JButton btnAddNew = new JButton("Add New"); /////////////////Add New/////////////////
+		btnAddNew.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				updateMode=false;
+				
+				btnSaveSelected.setEnabled(false);
+				btnCancel.setEnabled(true);
 				btnBusMigrate.setEnabled(false);
 				btnSaveNew.setEnabled(true);
-				btnUpdateSelected.setEnabled(false);
-				btnCancel.setEnabled(true);
-				btnDelete.setEnabled(false);
-				btnAddNew.setEnabled(false);
 
-				
 				tfFname.setEditable(true);
 				tfLname.setEditable(true);
 				tfEmail.setEditable(true);
@@ -390,17 +361,23 @@ public class PersonalContact extends JFrame {
 				tfCity.setText("");
 			}
 		});
+		btnAddNew.setBounds(890, 42, 132, 27);
+		contentPane.add(btnAddNew);
 		
 		
-		btnUpdateSelected.addActionListener(new ActionListener() {///////////UpdateSelected////////////
-			public void actionPerformed(ActionEvent e) {
+		btnSaveSelected.setEnabled(false);
+		btnSaveSelected.setBounds(719, 82, 132, 27);
+		contentPane.add(btnSaveSelected);
+		
+		JButton btnUpdateSelected = new JButton("Update Selected"); ///////////UpdateSelected////////////
+		btnUpdateSelected.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
 				btnSaveSelected.setEnabled(true);
 				btnCancel.setEnabled(true);
 				btnBusMigrate.setEnabled(false);
-				btnUpdateSelected.setEnabled(false);
-				btnAddNew.setEnabled(false);
-				btnDelete.setEnabled(false);
-
+				
 				tfFname.setEditable(true);
 				tfLname.setEditable(true);
 				tfEmail.setEditable(true);
@@ -410,10 +387,15 @@ public class PersonalContact extends JFrame {
 				tfAddr3.setEditable(true);
 				tfPostcode.setEditable(true);
 				tfCity.setEditable(true);
+				
+				
+				
 			}
 		});
+		btnUpdateSelected.setBounds(719, 42, 132, 27);
+		contentPane.add(btnUpdateSelected);
 		
-		Refresh();//Load data after page creates
-
+		
+		
 	}
 }
