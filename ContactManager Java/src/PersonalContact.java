@@ -215,7 +215,7 @@ public class PersonalContact extends JFrame {
 		
 		
 
-		btnCancel.addActionListener(new ActionListener() {//////////Cancel Editing///////////////////
+		btnCancel.addActionListener(new ActionListener() {///////////////////Cancel Editing///////////////////
 			public void actionPerformed(ActionEvent e) {
 				
 				btnSaveSelected.setEnabled(false);

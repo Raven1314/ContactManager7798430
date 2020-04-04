@@ -213,7 +213,28 @@ public class BusinessContact extends JFrame {
 		getContentPane().add(tfFname);
 		
 		
-	
+		btnCancel.addActionListener(new ActionListener() {///////////////////Cancel Editing///////////////////
+			public void actionPerformed(ActionEvent e) {
+				btnSaveSelected.setEnabled(false);
+				btnCancel.setEnabled(false);
+				btnBusMigrate.setEnabled(true);
+				btnUpdateSelected.setEnabled(true);
+				btnAddNew.setEnabled(true);
+				btnSaveNew.setEnabled(false);
+				btnDelete.setEnabled(true);
+				
+				tfFname.setEditable(false);
+				tfLname.setEditable(false);
+				tfEmail.setEditable(false);
+				tfBusTel.setEditable(false);
+				tfAddr1.setEditable(false);
+				tfAddr2.setEditable(false);
+				tfAddr3.setEditable(false);
+				tfPostcode.setEditable(false);
+				tfCity.setEditable(false);
+			}
+		});
+		
 		btnUpdateSelected.addActionListener(new ActionListener() {///////////UpdateSelected////////////
 			public void actionPerformed(ActionEvent e) {
 				
@@ -253,7 +274,7 @@ public class BusinessContact extends JFrame {
 				String city = tfCity.getText();
 				String id = table.getValueAt(table.getSelectedRow(), 0).toString();
 
-				d.UpdatePersonal(f, l, em, busTel, addr1, addr2, addr3, postcode, city, id);
+				d.UpdateBusiness(f, l, em, busTel, addr1, addr2, addr3, postcode, city, id);
 				Refresh();
 				
 				btnSaveSelected.setEnabled(false);
@@ -279,9 +300,79 @@ public class BusinessContact extends JFrame {
 			}
 		});
 		
+		btnAddNew.addActionListener(new ActionListener() {/////////////////Add New/////////////////
+			public void actionPerformed(ActionEvent e) {
+				btnBusMigrate.setEnabled(false);
+				btnSaveNew.setEnabled(true);
+				btnUpdateSelected.setEnabled(false);
+				btnCancel.setEnabled(true);
+				btnDelete.setEnabled(false);
+				btnAddNew.setEnabled(false);
+
+				
+				tfFname.setEditable(true);
+				tfLname.setEditable(true);
+				tfEmail.setEditable(true);
+				tfBusTel.setEditable(true);
+				tfAddr1.setEditable(true);
+				tfAddr2.setEditable(true);
+				tfAddr3.setEditable(true);
+				tfPostcode.setEditable(true);
+				tfCity.setEditable(true);
+				
+				tfFname.setText("");
+				tfLname.setText("");
+				tfEmail.setText("");
+				tfBusTel.setText("");
+				tfAddr1.setText("");
+				tfAddr2.setText("");
+				tfAddr3.setText("");
+				tfPostcode.setText("");
+				tfCity.setText("");
+			}
+		});
 		
-		
-		
+		btnSaveNew.addActionListener(new ActionListener() {//////////////////Save New///////////////////
+			public void actionPerformed(ActionEvent e) {
+				if(!((tfFname.getText().isEmpty() || tfLname.getText().isEmpty()))) {
+					
+					
+					String f = tfFname.getText();
+					String l = tfLname.getText();
+					String em = tfEmail.getText();
+					String perTel = tfBusTel.getText();
+					String addr1 = tfAddr1.getText();
+					String addr2 = tfAddr2.getText();
+					String addr3 = tfAddr3.getText();
+					String postcode = tfPostcode.getText();
+					String city = tfCity.getText();
+
+					d.InsertBusiness(f, l, em, perTel, addr1, addr2, addr3, postcode, city);
+					Refresh();
+
+					btnCancel.setEnabled(false);
+					btnBusMigrate.setEnabled(true);
+					btnSaveNew.setEnabled(false);
+					btnAddNew.setEnabled(true);
+					btnUpdateSelected.setEnabled(true);
+					btnDelete.setEnabled(true);
+
+					tfFname.setEditable(true);
+					tfLname.setEditable(true);
+					tfEmail.setEditable(true);
+					tfBusTel.setEditable(true);
+					tfAddr1.setEditable(true);
+					tfAddr2.setEditable(true);
+					tfAddr3.setEditable(true);
+					tfPostcode.setEditable(true);
+					tfCity.setEditable(true);
+					}
+					
+					else {
+						JOptionPane.showMessageDialog(null,"Please enter First Name or Last Name");
+					}
+			}
+		});
 		
 	}
 }

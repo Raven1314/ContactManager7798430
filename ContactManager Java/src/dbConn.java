@@ -137,8 +137,9 @@ public class dbConn {
 
 	public void UpdateBusiness(String f,String l,String em,String busTel,String addr1,String addr2,String addr3,String postcode,String city,String id) 
 	{
-		String sql="{CALL updateBus(?,?,?,?,?,?,?,?,?,?)}";
+		String sql="{CALL updateBusiness(?,?,?,?,?,?,?,?,?,?)}";
 		try {
+			
 			java.sql.CallableStatement cst= conn.prepareCall(sql);
 			cst.setString(1, id);
 			cst.setString(2, f);
