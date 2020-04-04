@@ -265,12 +265,12 @@ public class PersonalContact extends JFrame {
 		Refresh();//Load data after table finish creating
 
 		
-		btnDelete.addActionListener(new ActionListener() {////////////////////Delete////////////////
+		btnDelete.addActionListener(new ActionListener() {////////////////////Delete////////////////////
 			public void actionPerformed(ActionEvent e) {
 				try {//When delete nothing error appears in the console, so try and catch is used
 					
 				    int dialogButton = JOptionPane.YES_NO_OPTION;
-					int dialogResult = JOptionPane.showConfirmDialog (null, "Delete" +" " +	table.getValueAt(table.getSelectedRow(),1) +" "+table.getValueAt(table.getSelectedRow(),2),"Warning",dialogButton);
+					int dialogResult = JOptionPane.showConfirmDialog (null, "Delete" +" " +	table.getValueAt(table.getSelectedRow(),1) +" "+table.getValueAt(table.getSelectedRow(),2)+"?","Warning",dialogButton);
 					//adds record information into confirmation box
 					if(dialogResult == JOptionPane.YES_OPTION){//If user clicked yes, it will delete the record
 						String id = table.getValueAt(table.getSelectedRow(), 0).toString();
