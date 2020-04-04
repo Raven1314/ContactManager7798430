@@ -167,7 +167,7 @@ public class BusinessContact extends JFrame {
 		getContentPane().add(btnRefresh);
 		
 		JButton btnBusMigrate = new JButton("Migrate to Business");
-		btnBusMigrate.setBounds(719, 171, 132, 27);
+		btnBusMigrate.setBounds(700, 172, 151, 27);
 		getContentPane().add(btnBusMigrate);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -238,6 +238,59 @@ public class BusinessContact extends JFrame {
 
 			}
 			
+		});
+		
+		
+		btnBusMigrate.addActionListener(new ActionListener() {///////////////Migrate from Personal to Business///////////////////
+			public void actionPerformed(ActionEvent e) {
+				try {//When migrate nothing error appears in the console, so try and catch is used
+
+					int dialogButton = JOptionPane.YES_NO_OPTION;
+					int dialogResult = JOptionPane.showConfirmDialog (null, "Migrate" +" " + table.getValueAt(table.getSelectedRow(),1) +" "+table.getValueAt(table.getSelectedRow(),2)+" to Personal?"+"?","Warning",dialogButton);
+					//adds record information into confirmation box
+					if(dialogResult == JOptionPane.YES_OPTION){//If user clicked yes, it will delete the record
+					String f = tfFname.getText();
+					String l = tfLname.getText();
+					String em = tfEmail.getText();
+					String perTel = tfBusTel.getText();
+					String addr1 = tfAddr1.getText();
+					String addr2 = tfAddr2.getText();
+					String addr3 = tfAddr3.getText();
+					String postcode = tfPostcode.getText();
+					String city = tfCity.getText();
+
+					d.InsertPersonal(f, l, em, perTel, addr1, addr2, addr3, postcode, city);
+					
+					String id = table.getValueAt(table.getSelectedRow(), 0).toString();
+					d.DeleteBusiness(id);//Delete after migration
+					Refresh();
+
+					btnCancel.setEnabled(false);
+					btnBusMigrate.setEnabled(true);
+					btnSaveNew.setEnabled(false);
+					btnAddNew.setEnabled(true);
+					btnUpdateSelected.setEnabled(true);
+					btnDelete.setEnabled(true);
+
+					tfFname.setEditable(true);
+					tfLname.setEditable(true);
+					tfEmail.setEditable(true);
+					tfBusTel.setEditable(true);
+					tfAddr1.setEditable(true);
+					tfAddr2.setEditable(true);
+					tfAddr3.setEditable(true);
+					tfPostcode.setEditable(true);
+					tfCity.setEditable(true);
+					}
+					
+					else {
+						//Does nothing
+						}
+					}
+					catch(Exception e1) {
+						
+					}
+			}
 		});
 		
 		

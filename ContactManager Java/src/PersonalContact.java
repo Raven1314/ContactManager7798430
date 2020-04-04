@@ -18,6 +18,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+import java.awt.Font;
 
 public class PersonalContact extends JFrame {
 
@@ -198,10 +200,8 @@ public class PersonalContact extends JFrame {
 		contentPane.add(btnCancel);
 		
 		JButton btnBusMigrate = new JButton("Migrate to Business");
-		btnBusMigrate.setBounds(719, 171, 132, 27);
+		btnBusMigrate.setBounds(700, 171, 151, 27);
 		contentPane.add(btnBusMigrate);
-		
-
 		
 		btnRefresh = new JButton("Refresh");////////////Refresh////////////////
 		btnRefresh.addActionListener(new ActionListener() {
@@ -262,6 +262,60 @@ public class PersonalContact extends JFrame {
 		});
 		scrollPane.setViewportView(table);
 		
+
+		btnBusMigrate.addActionListener(new ActionListener() {///////////////Migrate from Personal to Business///////////////////
+			public void actionPerformed(ActionEvent e) {
+				try {//When migrate nothing error appears in the console, so try and catch is used
+
+					int dialogButton = JOptionPane.YES_NO_OPTION;
+					int dialogResult = JOptionPane.showConfirmDialog (null, "Migrate" +" " + table.getValueAt(table.getSelectedRow(),1) +" "+table.getValueAt(table.getSelectedRow(),2)+" to Business?"+"?","Warning",dialogButton);
+					//adds record information into confirmation box
+					if(dialogResult == JOptionPane.YES_OPTION){//If user clicked yes, it will delete the record
+					String f = tfFname.getText();
+					String l = tfLname.getText();
+					String em = tfEmail.getText();
+					String perTel = tfPerTel.getText();
+					String addr1 = tfAddr1.getText();
+					String addr2 = tfAddr2.getText();
+					String addr3 = tfAddr3.getText();
+					String postcode = tfPostcode.getText();
+					String city = tfCity.getText();
+
+					d.InsertBusiness(f, l, em, perTel, addr1, addr2, addr3, postcode, city);
+					
+					String id = table.getValueAt(table.getSelectedRow(), 0).toString();
+					d.DeletePersonal(id);//Delete after migration
+					Refresh();
+
+					btnCancel.setEnabled(false);
+					btnBusMigrate.setEnabled(true);
+					btnSaveNew.setEnabled(false);
+					btnAddNew.setEnabled(true);
+					btnUpdateSelected.setEnabled(true);
+					btnDelete.setEnabled(true);
+
+					tfFname.setEditable(true);
+					tfLname.setEditable(true);
+					tfEmail.setEditable(true);
+					tfPerTel.setEditable(true);
+					tfAddr1.setEditable(true);
+					tfAddr2.setEditable(true);
+					tfAddr3.setEditable(true);
+					tfPostcode.setEditable(true);
+					tfCity.setEditable(true);
+					}
+					
+					else {
+						//Does nothing
+						}
+					}
+					catch(Exception e1) {
+						
+					}
+			}
+		});
+		
+		
 		Refresh();//Load data after table finish creating
 
 		
@@ -288,13 +342,6 @@ public class PersonalContact extends JFrame {
 
 			}
 				
-		});
-		
-		
-		btnBusMigrate.addActionListener(new ActionListener() {//////////////////Migrate Personal to Business////////////////////
-			public void actionPerformed(ActionEvent e) {
-				
-			}
 		});
 		
 		
