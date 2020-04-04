@@ -4,10 +4,19 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import net.proteanit.sql.DbUtils;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTable;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class BusinessContact extends JFrame {
 	private JTextField tfEmail;
@@ -19,7 +28,10 @@ public class BusinessContact extends JFrame {
 	private JTextField tfLname;
 	private JTextField tfBusTel;
 	private JTextField tfFname;
-
+	private JTable table;
+	
+	dbConn d = new dbConn();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -35,7 +47,9 @@ public class BusinessContact extends JFrame {
 			}
 		});
 	}
-
+	public void Refresh() {//refresh connection can be called and get Business Contacts
+		table.setModel(DbUtils.resultSetToTableModel(d.GetAllBusiness()));
+	}
 	/**
 	 * Create the frame.
 	 */
@@ -144,6 +158,11 @@ public class BusinessContact extends JFrame {
 		getContentPane().add(btnCancel);
 		
 		JButton btnRefresh = new JButton("Refresh");
+		btnRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Refresh();
+			}
+		});
 		btnRefresh.setBounds(890, 171, 132, 27);
 		getContentPane().add(btnRefresh);
 		
@@ -154,6 +173,26 @@ public class BusinessContact extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(27, 250, 977, 333);
 		getContentPane().add(scrollPane);
+		
+		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				tfFname.setText(table.getValueAt(table.getSelectedRow(),1).toString());
+				tfLname.setText(table.getValueAt(table.getSelectedRow(),2).toString());
+				tfEmail.setText(table.getValueAt(table.getSelectedRow(),3).toString());
+				tfBusTel.setText(table.getValueAt(table.getSelectedRow(),4).toString());
+				tfAddr1.setText(table.getValueAt(table.getSelectedRow(),5).toString());
+				tfAddr2.setText(table.getValueAt(table.getSelectedRow(),6).toString());
+				tfAddr3.setText(table.getValueAt(table.getSelectedRow(),7).toString());
+				tfPostcode.setText(table.getValueAt(table.getSelectedRow(),8).toString());
+				tfCity.setText(table.getValueAt(table.getSelectedRow(),9).toString());
+			}
+		});
+		scrollPane.setViewportView(table);
+		
+		Refresh();
 		
 		tfLname = new JTextField();
 		tfLname.setEditable(false);
@@ -172,5 +211,77 @@ public class BusinessContact extends JFrame {
 		tfFname.setColumns(10);
 		tfFname.setBounds(91, 46, 110, 19);
 		getContentPane().add(tfFname);
+		
+		
+	
+		btnUpdateSelected.addActionListener(new ActionListener() {///////////UpdateSelected////////////
+			public void actionPerformed(ActionEvent e) {
+				
+				btnSaveSelected.setEnabled(true);
+				btnCancel.setEnabled(true);
+				btnBusMigrate.setEnabled(false);
+				btnUpdateSelected.setEnabled(false);
+				btnAddNew.setEnabled(false);
+				btnDelete.setEnabled(false);
+
+				tfFname.setEditable(true);
+				tfLname.setEditable(true);
+				tfEmail.setEditable(true);
+				tfBusTel.setEditable(true);
+				tfAddr1.setEditable(true);
+				tfAddr2.setEditable(true);
+				tfAddr3.setEditable(true);
+				tfPostcode.setEditable(true);
+				tfCity.setEditable(true);
+			}
+		});
+		
+		
+		btnSaveSelected.addActionListener(new ActionListener() {//////////////////Save Selected///////////////////
+			public void actionPerformed(ActionEvent e) {
+				
+				if(!((tfFname.getText().isEmpty() || tfLname.getText().isEmpty()))) {
+
+				String f = tfFname.getText();
+				String l = tfLname.getText();
+				String em = tfEmail.getText();
+				String busTel = tfBusTel.getText();
+				String addr1 = tfAddr1.getText();
+				String addr2 = tfAddr2.getText();
+				String addr3 = tfAddr3.getText();
+				String postcode = tfPostcode.getText();
+				String city = tfCity.getText();
+				String id = table.getValueAt(table.getSelectedRow(), 0).toString();
+
+				d.UpdatePersonal(f, l, em, busTel, addr1, addr2, addr3, postcode, city, id);
+				Refresh();
+				
+				btnSaveSelected.setEnabled(false);
+				btnCancel.setEnabled(false);
+				btnBusMigrate.setEnabled(true);
+				btnUpdateSelected.setEnabled(true);
+				btnAddNew.setEnabled(true);
+				btnDelete.setEnabled(true);
+
+				tfFname.setEditable(false);
+				tfLname.setEditable(false);
+				tfEmail.setEditable(false);
+				tfBusTel.setEditable(false);
+				tfAddr1.setEditable(false);
+				tfAddr2.setEditable(false);
+				tfAddr3.setEditable(false);
+				tfPostcode.setEditable(false);
+				tfCity.setEditable(false);
+				}
+				else {
+					JOptionPane.showMessageDialog(null,"Please enter First Name or Last Name");
+					}
+			}
+		});
+		
+		
+		
+		
+		
 	}
 }

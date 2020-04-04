@@ -65,7 +65,7 @@ public class PersonalContact extends JFrame {
 		
 		
 	}
-	public void Refresh() {//refresh connection can be called
+	public void Refresh() {//refresh connection can be called and get Personal Contacts
 		table.setModel(DbUtils.resultSetToTableModel(d.GetAllPersonal()));
 	}
 	/**
@@ -262,7 +262,8 @@ public class PersonalContact extends JFrame {
 		});
 		scrollPane.setViewportView(table);
 		
-		
+		Refresh();//Load data after table finish creating
+
 		
 		btnDelete.addActionListener(new ActionListener() {////////////////////Delete////////////////
 			public void actionPerformed(ActionEvent e) {
@@ -441,7 +442,6 @@ public class PersonalContact extends JFrame {
 			}
 		});
 		
-		Refresh();//Load data after page creates
 
 	}
 }

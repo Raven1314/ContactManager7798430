@@ -45,7 +45,6 @@ public class dbConn {
     
 	public void UpdatePersonal(String f,String l,String em,String perTel,String addr1,String addr2,String addr3,String postcode,String city,String id) 
 	{
-		ResultSet rs = null;
 		String sql="{CALL updatePersonal(?,?,?,?,?,?,?,?,?,?)}";
 		try {
 			java.sql.CallableStatement cst= conn.prepareCall(sql);
@@ -59,7 +58,7 @@ public class dbConn {
 			cst.setString(8, addr3);
 			cst.setString(9, postcode);
 			cst.setString(10, city);
-			rs=cst.executeQuery();
+			cst.executeQuery();
 		}
 		catch(SQLException e){
 			e.printStackTrace();
@@ -72,7 +71,7 @@ public class dbConn {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public void InsertPersonal(String f,String l,String em,String perTel,String addr1,String addr2,String addr3,String postcode,String city) 
 	{
-		ResultSet rs = null;
+		
 		String sql="{CALL insertPersonal(?,?,?,?,?,?,?,?,?)}";
 		try {
 			java.sql.CallableStatement cst= conn.prepareCall(sql);
@@ -85,7 +84,7 @@ public class dbConn {
 			cst.setString(7, addr3);
 			cst.setString(8, postcode);
 			cst.setString(9, city);
-			rs=cst.executeQuery();
+			cst.executeQuery();
 		}
 		catch(SQLException e){
 			e.printStackTrace();
@@ -116,7 +115,7 @@ public class dbConn {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////      Business Contact         ////////////////////////////////////////////////////////////////////
 	
-public ResultSet GetAllBusiness() {
+	public ResultSet GetAllBusiness() {
 		
 		ResultSet rs = null;
 		String sql="{CALL selectAllBusiness()}";
@@ -138,8 +137,7 @@ public ResultSet GetAllBusiness() {
 
 	public void UpdateBusiness(String f,String l,String em,String busTel,String addr1,String addr2,String addr3,String postcode,String city,String id) 
 	{
-		ResultSet rs = null;
-		String sql="{CALL updateBusiness(?,?,?,?,?,?,?,?,?,?)}";
+		String sql="{CALL updateBus(?,?,?,?,?,?,?,?,?,?)}";
 		try {
 			java.sql.CallableStatement cst= conn.prepareCall(sql);
 			cst.setString(1, id);
@@ -152,7 +150,7 @@ public ResultSet GetAllBusiness() {
 			cst.setString(8, addr3);
 			cst.setString(9, postcode);
 			cst.setString(10, city);
-			rs=cst.executeQuery();
+			cst.executeQuery();
 		}
 		catch(SQLException e){
 			e.printStackTrace();
@@ -165,7 +163,6 @@ public ResultSet GetAllBusiness() {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public void InsertBusiness(String f,String l,String em,String busTel,String addr1,String addr2,String addr3,String postcode,String city) 
 	{
-		ResultSet rs = null;
 		String sql="{CALL insertBusiness(?,?,?,?,?,?,?,?,?)}";
 		try {
 			java.sql.CallableStatement cst= conn.prepareCall(sql);
@@ -178,7 +175,7 @@ public ResultSet GetAllBusiness() {
 			cst.setString(7, addr3);
 			cst.setString(8, postcode);
 			cst.setString(9, city);
-			rs=cst.executeQuery();
+			cst.executeQuery();
 		}
 		catch(SQLException e){
 			e.printStackTrace();
